@@ -1,0 +1,92 @@
+<!-- External JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/remodal/1.1.0/remodal.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.3/js.cookie.min.js"></script>
+
+<!-- Spreadsheet -->
+<script>
+    //google.script.run.withSuccessHandler(processData).getArticles();
+    
+    function processData(labels){
+    for (i in labels) { 
+      console.log(labels[i]);
+            
+      var name = labels[i][4] + " " + labels[i][5];
+      var catagory = labels[i][2];
+     }  
+    }
+    
+</script>
+
+<!-- Update -->
+
+<script>
+
+window.setInterval(function(){
+  
+  google.script.run.withSuccessHandler(updateArticles).getArticles();
+  
+}, 5000);
+
+function updateArticles(articleData){
+
+  var table = $('#articles-table').DataTable();
+  
+  for (var i = 0; i < articleData.length; i++){
+    //this should work as long as no one screws with the ordering. Use this if things go wrong: https://datatables.net/reference/type/row-selector
+    table.row(i).data ([articleData[i][1], articleData[i][4],articleData[i][2],articleData[i][3],articleData[i][7]]);
+  }
+  table.draw();
+    
+  //Make sure everythings the right colour
+  var statuses = $(".status-cell").each(function(){$(this).attr("value", $(this).text())}); //yeah it says in the jquery docs not to do this but oh well
+
+}
+
+</script>
+
+<!-- Session Stuff -->
+
+<script>
+
+function checkPrivilege (key){
+
+  google.script.run.withSuccessHandler(checkedPrivilege).getLevelFromKey();
+
+}
+
+function checkedPrivilege (e){
+
+   alert (e);
+
+}
+
+</script>
+
+<!-- Datatables -->
+
+<script>
+
+//Link the buttons
+jQuery(document).ready(function($) {
+    $(".publishButton").click(function() {
+       var url = $(this).attr("data-article-url");
+       var articleId = $(this).attr("data-article-id");
+       var email = $("#publishEmail" + articleId).val();
+       $(this).hide();
+       google.script.run.withSuccessHandler(publishCompleted).togglePublished(url, email);
+    });
+});
+
+function publishCompleted(e){
+
+}
+
+//DataTable Initialisation
+$(document).ready(function(){
+    $('#articles-table').DataTable();
+});
+
+
+</script>

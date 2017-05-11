@@ -1,0 +1,161 @@
+<!-- External CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="https://assets.ysjournal.com/css/spinner.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remodal/1.1.0/remodal.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remodal/1.1.0/remodal-default-theme.min.css" />
+
+<!-- Custom CSS -->
+<style>
+html{
+ overflow-y: scroll;
+}
+
+body, html {
+ margin: 0;
+ padding: 0;
+ background: #eeeeee;
+}
+
+.container {
+ max-width: 1200px;
+}
+
+.header {
+ width: 100%;
+ background: #cc0000;
+ margin: 0 auto;
+}
+
+.header img {
+ display: block;
+ margin: 0 auto;
+ height: 200px;
+}
+
+a {
+ text-decoration: none;
+ cursor: pointer;
+}
+
+.login-container {
+ position: relative;
+ height: 500px;
+ width: 700px;
+ background: #fff;
+ border-radius: 2px;
+ box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+ margin: 16px;
+ padding: 16px;
+}
+
+#login {
+ visibility: hidden;
+}
+
+#email-error {
+ color: #cc0000;
+ visibility: hidden;
+}
+
+#articles-container {
+    margin: 0 auto;
+    background: white;
+    border-radius: 2px;
+    padding: 16px;
+    margin-top: 16px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+/* Footer */
+
+footer {
+ position: absolute;
+ bottom: 16px;
+ width: 100%;
+}
+
+footer > p {
+ text-align: center;
+}
+
+/* DataTables */
+
+table {
+ border-collapse: collapse;
+}
+
+.dataTables_length, .dataTables_filter {
+ width: 50%;
+ display: inline-block;
+}
+
+.clickable-row {
+ cursor: pointer;
+}
+
+.dataTables_paginate a {
+ margin-right: 6px;
+ cursor: pointer;
+}
+
+
+
+#articles-table > tbody td.status-cell[value*="Technical"] {color: #6fa8dc;}
+#articles-table > tbody td.status-cell[value*="Passed"] {color: #b7e1cd;}
+#articles-table > tbody td.status-cell[value*="Published"] {color: #6aa84f;}
+#articles-table > tbody td.status-cell[value*="Failed"] {color: #e06666;}
+#articles-table > tbody td.status-cell[value*="In Review"] {color: #FFC107;}
+
+
+tr,tr:hover {
+ transition: 0.3s all ease-in-out;
+}
+
+tbody > tr:hover {
+ box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+td {
+ padding: 8px;
+}
+
+/* Typography */
+
+h1 {
+ font-size: 3rem;
+}
+
+.remodal h3 {
+ font-size: 1.8rem;
+}
+
+.remodal h4 {
+ font-size: 2.4rem;
+}
+
+.remodal {
+backface-visibility: hidden;
+
+}
+
+/* Remodal */
+body > div.remodal-wrapper > .remodal-nobg {
+ background: rgba(255,255,255,0);
+}
+
+html.remodal-is-locked {
+ overflow-y: hidden;
+}
+/* Buttons */
+
+.button-green {
+ background-color: #43A047; 
+ color: white;
+}
+
+.button-red {
+ background-color: #F44336;
+ color:white;
+}
+</style>

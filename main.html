@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <title>Home | AMS</title>
+    <?!= include('style'); ?>
+  </head>
+  <body>
+    <div class="remodal-bg">
+
+    <div class="header">
+           <img src="https://assets.ysjournal.com/img/logo-management.png">
+    </div>
+  
+    <div class="container">
+    <div id="articles-container">
+        <h3>Articles</h3>
+         <table style="width:100%" id="articles-table">
+  <thead>
+  
+  <?   var sheetName = "Article Database";
+  var file, files = DriveApp.getFilesByName(sheetName); //Retrieve the ID
+  
+  //Check if the doc exists. If it doesn't, return nothing
+  if (files.hasNext ()){
+   file = files.next(); 
+  } else {
+    return "";
+  }
+  
+  var data = SpreadsheetApp.openById(file.getId()).getActiveSheet().getDataRange().getValues(); ?>
+  
+  <tr>
+    <th>&nbsp;Title</th>
+    <th>Author</th>
+    <th>Category</th> 
+    <th>Type</th>
+    <th>Status</th>
+  </tr>
+  </thead>
+    <tbody>
+    
+    <? for (var i = 1; i < data.length; i++) { ?>
+    <? if (data[i][1] == ""){continue;} //ignore empty stuff ?>
+    <tr class="clickable-row" data-remodal-target="article-<?= i ?>">
+    <td>&nbsp; <?= data[i][1] ?> </td>
+    <td> <?= data[i][4] ?> </td>
+    <td> <?= data[i][2] ?> </td>
+    <td> <?= data[i][3] ?></td>
+    <td class="status-cell" value="<?= data[i][7] ?>"> <?= data[i][7] ?></td>
+    </tr>
+    <? } ?>
+    
+  </tbody>
+</table>
+        <hr>
+        
+        <p>
+        <a data-remodal-target="help">Help</a>
+        </p>
+    </div>
+    </div>
+    </div><!-- /remodal-bg -->
+    <!-- Start Modals -->
+    <? for (var i = 1; i < data.length; i++) { 
+    
+    if (data[i][7] == "Accepted") {
+      var colour = "red";
+      var button_text = "Unpublish"
+    } else {var colour = "green"; var button_text = "Accept"}
+    
+    ?>
+    
+    <!-- Action Modal -->
+    
+    <div class="remodal" data-remodal-id="article-<?= i ?>">
+    <button data-remodal-action="close" class="remodal-close"></button>
+    <h1><?= data[i][1] ?></h1>
+    <h3><?= data[i][4] ?> | <?= data[i][2] ?> | <?= (data[i][9] == "Pending" || data[i][9] == "" ? "Editor Pending" : "Editor: " + data[i][9]) ?></h3>
+    <small> Deadline: <?= (data[i][11] == "" ? "Whenever" : data[i][11])  ?></small>
+    <br>
+    <br>
+    <a href="<?= data[i][8] ?>"  target="_blank"><button data-article-action="edit" class="button">Edit</button></a>
+    <button data-article-action="contact" data-remodal-target="article-email-<?= i ?>" class="button">Contact Author</button>
+    <button data-article-action="approve" data-remodal-target="article-publish-<?= i ?>" class="button button-<?= colour ?>"><?= button_text ?></button>
+    </div>
+    
+    <!-- Email Modal -->
+    
+    <div class="remodal" data-remodal-id="article-email-<?= i ?>">
+    <button data-remodal-action="close"  class="remodal-close"></button>
+    <p>
+    Email: <?= data[i][6] ?>
+    </p>
+    </div>
+    
+    <!-- (Un)publish Modal -->
+    <div class="remodal" data-remodal-id="article-publish-<?= i ?>">
+    <button data-remodal-action="close" class="remodal-close"></button>
+    <h1> You are about to update '<?= data[i][1] ?>'</h1>
+    <p> Type in your email address to confirm </p>
+    <input type="email" id="publishEmail<?= i ?>"/>
+    <button id="publishButton<?=i?>" class="publishButton" data-article-id="<?= i ?>" data-article-url="<?= data[i][8] ?>"> Confirm </button>
+    </div>
+    
+    <? } ?> <!-- End apps script loop -->
+    
+    <!-- Help Modal -->
+    
+    <div class="remodal" data-remodal-id="help">
+    <button data-remodal-action="close" class="remodal-close"></button>
+    <h4>Finding Articles</h4>
+    <p>
+     Use the search box to locate the article you want to view. For example, to find all articles under 'Chemistry' simply start typing into the box and the most relevant result will come to the top.
+    </p>
+    
+    <hr>
+    
+    <h4>Changing Status</h4>
+    <p>
+     The popup box will show you what actions you can take for the specific article. An article which has recently been submitted will be tagged 'Technical Review', so you will have the option
+     to upgrade its status to 'Scientific Review' once it has passed the initial test. The article's URL will remain the same.
+    </p>
+    
+    <hr>
+    
+    <h4>Notifying Authors</h4>
+    <p>
+     Authors get notified whenever you make a change to their article. If you wish to send a specific message that isn't covered by the system, you can use the 'Send Message' functionality.
+    </p>
+    <br>
+    <button data-remodal-action="close" class="button">Close</button>
+    </div>
+    
+    <!-- End Modals -->
+    
+     <?!= include('scripts'); ?>
+     
+  </body>
+  
+</html>
+

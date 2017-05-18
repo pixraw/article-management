@@ -28,7 +28,12 @@
     return "";
   }
   
-  var data = SpreadsheetApp.openById(file.getId()).getActiveSheet().getDataRange().getValues(); ?>
+  //var database = SpreadsheetApp.openById(file.getId()).getActiveSheet();
+  
+  var data = SpreadsheetApp.openById(file.getId()).getActiveSheet().getDataRange().getValues(); 
+  //var statusvalues = database.setActiveSheet(database.getSheets()[1]).getActiveSheet().getDataRange().getValues();
+  
+  ?>
   
   <tr>
     <th>&nbsp;Title</th>
@@ -43,7 +48,7 @@
     <? for (var i = 1; i < data.length; i++) { ?>
     <? if (data[i][1] == ""){continue;} //ignore empty stuff ?>
     <tr class="clickable-row" data-remodal-target="article-<?= i ?>">
-    <td>&nbsp; <?= data[i][1] ?> </td>
+    <td> <?= data[i][1] ?> </td>
     <td> <?= data[i][4] ?> </td>
     <td> <?= data[i][2] ?> </td>
     <td> <?= data[i][3] ?></td>
@@ -64,14 +69,26 @@
     <!-- Start Modals -->
     <? for (var i = 1; i < data.length; i++) { 
     
-    if (data[i][7] == "Accepted") {
-      var colour = "red";
-      var button_text = "Unpublish"
-    } else {var colour = "green"; var button_text = "Accept"}
+    if (data[i][7] == "Published") { var colour = "red"; var button_text = "Unpublished"; }
     
+        else {var colour = "green"; var button_text = "Published";}
+    
+    /* This is an 'n-1' situation
+    if (data[i][7] == "Published") { var colour = "red"; var button_text = "Unpublished"} 
+    if (data[i][7] == "Ready to Publish") { var colour = "green"; var button_text = "Published"} 
+    if (data[i][7] == "Technical Review") { var colour = "cyan"; var button_text = "Ready to Publish} 
+    if (data[i][7] == "Passed Data Check") { var colour = "blue"; var button_text = "Technical Review"} 
+    if (data[i][7] == "Failed Data Check") { var colour = "lightgreen"; var button_text = "Unpublish"} 
+    if (data[i][7] == "In Review") { var colour = "red"; var button_text = "Unpublish"} 
+    
+    ^^ Dumb way of doing things anyway!
+    
+    Best approach would be a dropdown in the 
+    */
+        
     ?>
     
-    <!-- Action Modal -->
+    <!-- Article Action Modal -->
     
     <div class="remodal" data-remodal-id="article-<?= i ?>">
     <button data-remodal-action="close" class="remodal-close"></button>
@@ -81,8 +98,13 @@
     <br>
     <br>
     <a href="<?= data[i][8] ?>"  target="_blank"><button data-article-action="edit" class="button">Edit</button></a>
-    <button data-article-action="contact" data-remodal-target="article-email-<?= i ?>" class="button">Contact Author</button>
-    <button data-article-action="approve" data-remodal-target="article-publish-<?= i ?>" class="button button-<?= colour ?>"><?= button_text ?></button>
+    <a data-article-action="contact" href="mailto:<?= data[i][6] ?>" class="button">Contact Author</a><br />
+    <p>Change status to: 
+    <select>
+       
+    </select>
+    <!--<button data-article-action="approve" data-remodal-target="article-publish-<?= i ?>" class="button button-<?= colour ?>"><?= button_text ?></button>-->
+    </p>
     </div>
     
     <!-- Email Modal -->

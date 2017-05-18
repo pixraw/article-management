@@ -18,7 +18,7 @@ body, html {
 }
 
 .container {
- max-width: 1200px;
+ max-width: 1400px;
 }
 
 .header {
@@ -99,14 +99,16 @@ table {
  cursor: pointer;
 }
 
+td:first-child, th:first-child {
+    padding-left: 8px;
+}
 
-
-#articles-table > tbody td.status-cell[value*="Technical"] {color: #6fa8dc;}
-#articles-table > tbody td.status-cell[value*="Passed"] {color: #b7e1cd;}
-#articles-table > tbody td.status-cell[value*="Published"] {color: #6aa84f;}
-#articles-table > tbody td.status-cell[value*="Failed"] {color: #e06666;}
-#articles-table > tbody td.status-cell[value*="In Review"] {color: #FFC107;}
-
+#articles-table > tbody td.status-cell[value*="Technical"] {background-color: #6fa8dc;}
+#articles-table > tbody td.status-cell[value*="Passed"] {background-color: #b7e1cd;}
+#articles-table > tbody td.status-cell[value*="Published"] {background-color: #6aa84f;}
+#articles-table > tbody td.status-cell[value*="Failed"] {background-color: #e06666;}
+#articles-table > tbody td.status-cell[value*="In Review"] {background-color: #ffe599;}
+#articles-table > tbody td.status-cell[value*="Ready to Publish"] {background-color: #00ffff;}
 
 tr,tr:hover {
  transition: 0.3s all ease-in-out;
@@ -124,6 +126,10 @@ td {
 
 h1 {
  font-size: 3rem;
+}
+
+.remodal h1 {
+  font-size: 2.3rem;
 }
 
 .remodal h3 {
@@ -158,4 +164,9 @@ html.remodal-is-locked {
  background-color: #F44336;
  color:white;
 }
+
+.button-cyan { background-color: #ffe599; }
+.button-blue { background-color: #6fa8dc; }
+.button-yellow { background-color: #ffe599; }
+.button-lightgreen { background-color: #b7e1cd; }
 </style>

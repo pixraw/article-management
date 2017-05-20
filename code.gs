@@ -179,3 +179,23 @@ function togglePublished (url, email){
   return "failure"
   
 }
+
+function updateStatus(status, id) {
+  var sheetname = "Article Database";
+  
+  var file, files = DriveApp.getFilesByName(sheetname); //Retrieve the ID
+  
+  //Check if the doc exists. If it doesn't, return nothing
+  if (files.hasNext ()){
+   file = files.next(); 
+  } else {
+    return "";
+  }
+  
+  //var row = String.fromCharCode(65 + id) + "7";
+  
+  SpreadsheetApp.openById(file.getId()).getActiveSheet().getRange(id,8).setValue(status);
+  
+  
+  return "Updated Successfully.";
+}

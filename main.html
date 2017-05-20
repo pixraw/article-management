@@ -15,6 +15,7 @@
     <div class="container">
     <div id="articles-container">
         <h3>Articles</h3>
+        
          <table style="width:100%" id="articles-table">
   <thead>
   
@@ -28,13 +29,28 @@
     return "";
   }
   
-  //var database = SpreadsheetApp.openById(file.getId()).getActiveSheet();
+  var database = SpreadsheetApp.openById(file.getId());
   
-  var data = SpreadsheetApp.openById(file.getId()).getActiveSheet().getDataRange().getValues(); 
+  var data = SpreadsheetApp.openById(file.getId()).getActiveSheet().getDataRange().getValues();
+    
   //var statusvalues = database.setActiveSheet(database.getSheets()[1]).getActiveSheet().getDataRange().getValues();
   
   ?>
   
+  <!--<select>
+    <? /*var ss = database.getActiveSpreadsheet();
+       
+        SpreadsheetApp.setActiveSheet(ss.getSheets()[1]);
+
+    
+        
+        for (var i = 1; i < statusvalues.length; i++) { 
+     ?>
+     
+       <option><? statusvalues[i][1] ?></option>
+    
+    <? } */ ?>
+    </select>-->
   <tr>
     <th>&nbsp;Title</th>
     <th>Author</th>
@@ -97,13 +113,21 @@
     <small> Deadline: <?= (data[i][11] == "" ? "Whenever" : data[i][11])  ?></small>
     <br>
     <br>
-    <a href="<?= data[i][8] ?>"  target="_blank"><button data-article-action="edit" class="button">Edit</button></a>
-    <a data-article-action="contact" href="mailto:<?= data[i][6] ?>" class="button">Contact Author</a><br />
+    <a href="<?= data[i][8] ?>"  target="_blank"><button data-article-action="edit" class="button"><i class="fa fa-external-link" aria-hidden="true"></i> Edit</button></a>
+    <a data-article-action="contact" href="mailto:<?= data[i][6] ?>" class="button button-blue"><i class="fa fa-envelope-o" aria-hidden="true"></i> Contact Author</a><br />
+    
     <p>Change status to: 
-    <select>
-       
+    <select name="statusvalues" id="statusvalues<?= i ?>" data-article-id="<?= i ?>">
+     <option value="In Review">In Review</option>
+     <option value="Failed Data Check">Failed Data Check</option>
+     <option value="Passed Data Check">Passed Data Check</option>
+     <option value="Technical Review">Technical Review</option>
+     <option value="Ready to Publish">Ready to Publish</option>
+     <option value="Published">Published</option>
     </select>
     <!--<button data-article-action="approve" data-remodal-target="article-publish-<?= i ?>" class="button button-<?= colour ?>"><?= button_text ?></button>-->
+    <button class="button button-green updatestatus" data-article-id="<?= i ?>" id="updatestatus<?= i ?>"><i class="fa fa-check" aria-hidden="true"></i> Update</button>
+    <svg id='updatespinner<?= i ?>' class='spinner updatespinner' width='30px' height='30px' viewBox='0 0 66 66' xmlns='http://www.w3.org/2000/svg'><circle class='path' fill='none' stroke-width='6' stroke-linecap='round' cx='33' cy='33' r='30'></circle></svg>
     </p>
     </div>
     
@@ -153,6 +177,14 @@
     <br>
     <button data-remodal-action="close" class="button">Close</button>
     </div>
+    
+    <!-- Loading Modal -->
+    
+    <div class="remodal remodal-nobg" data-remodal-id="modal-loading">
+  <p>
+    <svg class='spinner' width='40px' height='40px' viewBox='0 0 66 66' xmlns='http://www.w3.org/2000/svg'><circle class='path' fill='none' stroke-width='6' stroke-linecap='round' cx='33' cy='33' r='30'></circle></svg>
+  <p>
+</div>
     
     <!-- End Modals -->
     

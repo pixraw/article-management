@@ -83,10 +83,30 @@ function publishCompleted(e){
 
 }
 
+$(".updatestatus").click(function(e) {
+    e.preventDefault();
+
+    var id = $(this).data('article-id');
+    var status = $('#statusvalues' + id).find(":selected").text();
+    $(this).css("display", "none");
+    $("#updatespinner" + id).css("display", "inline-block");
+    
+    var row = id + 1
+    
+    google.script.run.withSuccessHandler(updateStatusComplete).updateStatus(status, row);
+    
+});
+
+function updateStatusComplete(e){
+ alert('Updated');
+ $(".updatestatus").css("display", "inline-block");
+ $("svg.updatespinner").css("display", "none");
+}
+
 //DataTable Initialisation
 $(document).ready(function(){
     $('#articles-table').DataTable();
 });
 
-
+var modalLoading = $('[data-remodal-id=modal-loading]').remodal();
 </script>

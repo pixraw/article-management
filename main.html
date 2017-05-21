@@ -119,7 +119,7 @@
     <br>
     <br>
     <a href="<?= data[i][8] ?>"  target="_blank"><button data-article-action="edit" class="button"><i class="fa fa-external-link" aria-hidden="true"></i> Edit</button></a>
-    <a href="https://docs.google.com/document/u/0/d/<?= id ?>export?format=docx"><button data-article-action="download" class="button button-yellow"><i class="fa fa-cloud-download" aria-hidden="true"></i> Download</button></a>
+    <a href="https://docs.google.com/document/u/0/d/<?= id ?>export?format=docx"><button data-article-action="download" data-toast="download" class="button button-yellow"><i class="fa fa-cloud-download" aria-hidden="true"></i> Download</button></a>
     <a data-article-action="contact" href="mailto:<?= data[i][6] ?>" class="button button-blue"><i class="fa fa-envelope-o" aria-hidden="true"></i> Contact Author</a>
     
     <hr/>
@@ -146,15 +146,6 @@
     <p>
     Email: <?= data[i][6] ?>
     </p>
-    </div>
-    
-    <!-- (Un)publish Modal -->
-    <div class="remodal" data-remodal-id="article-publish-<?= i ?>">
-    <button data-remodal-action="close" class="remodal-close"></button>
-    <h1> You are about to update '<?= data[i][1] ?>'</h1>
-    <p> Type in your email address to confirm </p>
-    <input type="email" id="publishEmail<?= i ?>"/>
-    <button id="publishButton<?=i?>" class="publishButton" data-article-id="<?= i ?>" data-article-url="<?= data[i][8] ?>"> Confirm </button>
     </div>
     
     <? } ?> <!-- End apps script loop -->
@@ -199,6 +190,16 @@
     <!-- Toast for update -->
     <div class="toast" id="update">
             <i class="fa fa-check" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Succsessfully updated!
+    </div>
+    
+    <!-- Toast for download -->
+    <div class="toast" id="download">
+            <i class="fa fa-cloud-download" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Preparing download...
+    </div>
+    
+    <!-- Toast for fail -->
+    <div class="toast" id="fail">
+            <i class="fa fa-cross" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;An error occurred!
     </div>
     
      <?!= include('scripts'); ?>

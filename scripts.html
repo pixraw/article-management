@@ -93,7 +93,7 @@ $(".updatestatus").click(function(e) {
     
     var row = id + 1;
     
-    google.script.run.withSuccessHandler(updateStatusComplete).updateStatus(status, row);
+    google.script.run.withSuccessHandler(updateStatusComplete).withFailureHandler(toast(fail)).updateStatus(status, row)
     
 });
 
@@ -101,7 +101,7 @@ function updateStatusComplete(e){
  $(".updatestatus").css("display", "inline-block");
  $("svg.updatespinner").css("display", "none");
  
- var toastlength = 3000;
+ /*var toastlength = 3000;
                     var toastid = "#update";
                     $(toastid).addClass("toast-opening");
                     setTimeout(function(){
@@ -110,7 +110,7 @@ function updateStatusComplete(e){
                         setTimeout(function(){
                             $(toastid).removeClass("toast-open").addClass("toast-closing");
                         },toastlength);
-                    },1000);
+                    },1000);*/
  
 }
 
@@ -123,17 +123,14 @@ var modalLoading = $('[data-remodal-id=modal-loading]').remodal();
 
 // Very cool toast notifcation
 
-
 $(".button").click(function(){
-
-                var attr = $(this).attr('data-toast');
-
-                // For some browsers, `attr` is undefined; for others,
-                // `attr` is false.  Check for both.
-                if (typeof attr !== typeof undefined && attr !== false) {
                     var toastlength = 3000;
                     var toastid = "#" + $(this).attr("data-toast");
-                    $(toastid).addClass("toast-opening");
+                    toast(toastid);
+            });
+                
+function toast(toastid){
+$(toastid).addClass("toast-opening");
                     setTimeout(function(){
                         $(toastid).addClass("toast-open").removeClass("toast-opening");
 
@@ -141,8 +138,6 @@ $(".button").click(function(){
                             $(toastid).removeClass("toast-open").addClass("toast-closing");
                         },toastlength);
                     },1000);
-                }
-            });
-                
+}
 
 </script>

@@ -6,7 +6,7 @@ function doGet(e) {
   
   if (keyParam == undefined){ //if no key is provided send them to the auth page
       return HtmlService
-         .createTemplateFromFile('main') // Change to login for production, main to disable auth for dev
+         .createTemplateFromFile('login') // Change to login for production, main to disable auth for dev
          .evaluate()
          .setTitle('Article Management System')
       .setFaviconUrl('https://assets.ysjournal.com/img/ams-favicon.ico'); 

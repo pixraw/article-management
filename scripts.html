@@ -91,16 +91,27 @@ $(".updatestatus").click(function(e) {
     $(this).css("display", "none");
     $("#updatespinner" + id).css("display", "inline-block");
     
-    var row = id + 1
+    var row = id + 1;
     
     google.script.run.withSuccessHandler(updateStatusComplete).updateStatus(status, row);
     
 });
 
 function updateStatusComplete(e){
- alert('Updated');
  $(".updatestatus").css("display", "inline-block");
  $("svg.updatespinner").css("display", "none");
+ 
+ var toastlength = 3000;
+                    var toastid = "#update";
+                    $(toastid).addClass("toast-opening");
+                    setTimeout(function(){
+                        $(toastid).addClass("toast-open").removeClass("toast-opening");
+
+                        setTimeout(function(){
+                            $(toastid).removeClass("toast-open").addClass("toast-closing");
+                        },toastlength);
+                    },1000);
+ 
 }
 
 //DataTable Initialisation
@@ -109,4 +120,29 @@ $(document).ready(function(){
 });
 
 var modalLoading = $('[data-remodal-id=modal-loading]').remodal();
+
+// Very cool toast notifcation
+
+
+$(".button").click(function(){
+
+                var attr = $(this).attr('data-toast');
+
+                // For some browsers, `attr` is undefined; for others,
+                // `attr` is false.  Check for both.
+                if (typeof attr !== typeof undefined && attr !== false) {
+                    var toastlength = 3000;
+                    var toastid = "#" + $(this).attr("data-toast");
+                    $(toastid).addClass("toast-opening");
+                    setTimeout(function(){
+                        $(toastid).addClass("toast-open").removeClass("toast-opening");
+
+                        setTimeout(function(){
+                            $(toastid).removeClass("toast-open").addClass("toast-closing");
+                        },toastlength);
+                    },1000);
+                }
+            });
+                
+
 </script>

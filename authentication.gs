@@ -9,7 +9,7 @@ function sendAuthEmail(email) {
     MailApp.sendEmail({
       to: email,
       name: 'Submissions - Young Scientists Journal',
-      subject: "YSJ Authentication",
+      subject: "YSJ Authentication Key - " + key,
       htmlBody: "<!doctype html><html><body>Hi. <br/> Your key is <a href=\"https://script.google.com/macros/s/AKfycbw_q_5zDK5J7Ja8FXM4HFOqFoie_yHKN1gpirozJ1309Rni8bk/exec?key=" + key + "\">" + key + "<a></body></html>"
     });
     

@@ -85,6 +85,11 @@
     <!-- Start Modals -->
     <? for (var i = 1; i < data.length; i++) { 
     
+    var link = data[i][8].toString();
+    
+    var id = link.substring(51, 96);
+    
+    
     if (data[i][7] == "Published") { var colour = "red"; var button_text = "Unpublished"; }
     
         else {var colour = "green"; var button_text = "Published";}
@@ -109,12 +114,15 @@
     <div class="remodal" data-remodal-id="article-<?= i ?>">
     <button data-remodal-action="close" class="remodal-close"></button>
     <h1><?= data[i][1] ?></h1>
-    <h3><?= data[i][4] ?> | <?= data[i][2] ?> | <?= (data[i][9] == "Pending" || data[i][9] == "" ? "Editor Pending" : "Editor: " + data[i][9]) ?></h3>
+    <h3><?= data[i][4] ?> | <?= data[i][2] ?> <br /> <?= data[i][7] ?> | <?= (data[i][9] == "Pending" || data[i][9] == "" ? "Editor Pending" : "Editor: " + data[i][9]) ?></h3>
     <small> Deadline: <?= (data[i][11] == "" ? "Whenever" : data[i][11])  ?></small>
     <br>
     <br>
     <a href="<?= data[i][8] ?>"  target="_blank"><button data-article-action="edit" class="button"><i class="fa fa-external-link" aria-hidden="true"></i> Edit</button></a>
-    <a data-article-action="contact" href="mailto:<?= data[i][6] ?>" class="button button-blue"><i class="fa fa-envelope-o" aria-hidden="true"></i> Contact Author</a><br />
+    <a href="https://docs.google.com/document/u/0/d/<?= id ?>export?format=docx"><button data-article-action="download" class="button button-yellow"><i class="fa fa-cloud-download" aria-hidden="true"></i> Download</button></a>
+    <a data-article-action="contact" href="mailto:<?= data[i][6] ?>" class="button button-blue"><i class="fa fa-envelope-o" aria-hidden="true"></i> Contact Author</a>
+    
+    <hr/>
     
     <p>Change status to: 
     <select name="statusvalues" id="statusvalues<?= i ?>" data-article-id="<?= i ?>">
@@ -126,7 +134,7 @@
      <option value="Published">Published</option>
     </select>
     <!--<button data-article-action="approve" data-remodal-target="article-publish-<?= i ?>" class="button button-<?= colour ?>"><?= button_text ?></button>-->
-    <button class="button button-green updatestatus" data-article-id="<?= i ?>" id="updatestatus<?= i ?>"><i class="fa fa-check" aria-hidden="true"></i> Update</button>
+    <button class="button button-green updatestatus" data-article-id="<?= i ?>" data-toast="update" id="updatestatus<?= i ?>"><i class="fa fa-check" aria-hidden="true"></i> Update</button>
     <svg id='updatespinner<?= i ?>' class='spinner updatespinner' width='30px' height='30px' viewBox='0 0 66 66' xmlns='http://www.w3.org/2000/svg'><circle class='path' fill='none' stroke-width='6' stroke-linecap='round' cx='33' cy='33' r='30'></circle></svg>
     </p>
     </div>
@@ -187,6 +195,11 @@
 </div>
     
     <!-- End Modals -->
+    
+    <!-- Toast for update -->
+    <div class="toast" id="update">
+            <i class="fa fa-check" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Succsessfully updated!
+    </div>
     
      <?!= include('scripts'); ?>
      
